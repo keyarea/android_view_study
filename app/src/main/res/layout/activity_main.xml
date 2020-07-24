@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
     <TextView
         android:id="@+id/text_view"
         android:layout_width="match_parent"
@@ -14,5 +15,18 @@
         android:textSize="24sp"
         android:textColor="#00ff00"
         />
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        android:textAllCaps="false"
+        />
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入一些内容"
+        android:maxLines="2"/>
 
   </LinearLayout>
