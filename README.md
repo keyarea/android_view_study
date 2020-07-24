@@ -154,3 +154,144 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 ### ImageView
 
 > ImageView是用于在界面上展示图片的一个控件，它可以让我们的程序界面变的丰富多彩。
+
+```xml
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_1"/>
+```
+
+- `android:src`: 可以通过该属性给ImageView指定一张图片。
+
+我们还可以通过代码动态的更改ImageView中的图片，如下：
+
+```java
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private ImageView imageView;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button button1 = findViewById(R.id.button1);
+
+        // 获取imageView
+        imageView = findViewById(R.id.image_view);
+        // 使用实现接口的形式来注册监听器
+        button1.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button1:
+                imageView.setImageResource(R.drawable.img_2);
+                break;
+            default:
+                break;
+        }
+    }
+}
+```
+
+### ProgressBar
+
+> ProgressBar用于在界面上显示一个进度条，表示我们的程序正在加载一些数据。
+
+```xml
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+```
+
+- `android:visibility`: 所有的Android都具有这个属性，Android控件的可见属性。可选值有`visible`,`invisible`,`gone`:
+  - `visible`: 表示控件可见;
+  - `invisible`: 表示控件不可见，但是控件仍然占据原来的位置和大小;
+  - `gone`：则表示控件不可见，且不再占用任何屏幕空间。
+
+  我们还可以通过代码控制控件的可见性,使用的是`setVisibility()`方法，方法可传入`View.VISIBLE`, `VIEW.INVISIBLE`, `VIEW.GONE` .
+
+```java
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private ProgressBar progressBar;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button button1 = findViewById(R.id.button1);
+
+        // 获取progressBar
+        progressBar = findViewById(R.id.progress_bar);
+        // 使用实现接口的形式来注册监听器
+        button1.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button1:
+                if (progressBar.getVisibility() == View.GONE) {
+                    progressBar.setVisibility(View.VISIBLE);
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+}
+```
+
+我们还可以给ProgressBar设置不同的样式，可以将上面的圆形进度条，通过style属性将他指定为水平进度条。
+
+还可以通过`andoird:max`属性给进度条设置一个最大值，然后在代码中动态的改变进度条的值。
+
+```xml
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:max="100"/>
+```
+
+动态的改变水平进度条的值：
+
+```java
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private ProgressBar progressBar;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button button1 = findViewById(R.id.button1);
+
+
+        // 获取progressBar
+        progressBar = findViewById(R.id.progress_bar);
+
+        // 使用实现接口的形式来注册监听器
+        button1.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button1:
+                // 设置水平进度条的值
+                int progress = progressBar.getProgress();
+                progress += 10;
+                progressBar.setProgress(progress);
+                break;
+            default:
+                break;
+        }
+    }
+}
+```
