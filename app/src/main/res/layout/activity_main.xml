@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:style="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity"
     android:orientation="vertical">
     <TextView
@@ -28,5 +28,12 @@
         android:layout_height="wrap_content"
         android:hint="输入一些内容"
         android:maxLines="2"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:max="100"/>
 
   </LinearLayout>

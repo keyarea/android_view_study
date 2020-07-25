@@ -295,3 +295,96 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 }
 ```
+
+### AlertDialog
+
+> AlertDialog可以在当前的界面弹出一个对话框，这个对话框置顶于所有的界面元素之上的，能够屏蔽掉其他控件的交互能力，因此AlertDialog一般用于提示一些非常重要的内容或者警告信息。
+
+```java
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button button1 = findViewById(R.id.button1);
+
+        // 使用实现接口的形式来注册监听器
+        button1.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button1:
+                // 对话框
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                // 设置对话框标题
+                dialog.setTitle("This is Dialog");
+                // 设置对话框内容
+                dialog.setMessage("Something important.");
+                // 可否用Back键关闭对话框
+                dialog.setCancelable(false);
+                // 设置确认按钮的点击事件
+                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                // 设置取消按钮的点击事件
+                dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                // 将对话框显示出来
+                dialog.show();
+                break;
+            default:
+                break;
+        }
+    }
+}
+```
+
+### ProgressDialog
+
+> ProgresDialog和AlertDialog有点类似，都可以在界面上弹出一个对话框，都能够屏蔽掉其他控件的交互能力。不同的是，ProgressDialog会在对话框中显示一个进度条，一般用于表示当前操作比较耗时，让用户耐心等待。
+
+```java
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button button1 = findViewById(R.id.button1);
+
+
+        // 使用实现接口的形式来注册监听器
+        button1.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button1:
+                // ProgressDialog
+                ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+                // 设置标题
+                progressDialog.setTitle("This is ProgressDialog");
+                // 设置内容
+                progressDialog.setMessage("Loading...");
+                // 设置是否可以通过Back键取消
+                progressDialog.setCancelable(true);
+                // 显示
+                progressDialog.show();
+                break;
+            default:
+                break;
+        }
+    }
+}
+```
+
+## 详解四种基本布局

@@ -1,6 +1,10 @@
 package net.qipo.viewstudy;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -57,9 +61,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    progressBar.setVisibility(View.GONE);
 //                }
                 // 设置水平进度条的值
-                int progress = progressBar.getProgress();
-                progress += 10;
-                progressBar.setProgress(progress);
+//                int progress = progressBar.getProgress();
+//                progress += 10;
+//                progressBar.setProgress(progress);
+                // 对话框
+//                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+//                dialog.setTitle("This is Dialog");
+//                dialog.setMessage("Something important.");
+//                dialog.setCancelable(false);
+//                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                    }
+//                });
+//                dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                    }
+//                });
+//                dialog.show();
+                // ProgressDialog
+                ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+                progressDialog.setTitle("This is ProgressDialog");
+                progressDialog.setMessage("Loading...");
+                progressDialog.setCancelable(true);
+                progressDialog.show();
                 break;
             default:
                 break;
