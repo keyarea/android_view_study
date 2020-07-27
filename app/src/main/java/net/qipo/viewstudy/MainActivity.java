@@ -1,7 +1,10 @@
 package net.qipo.viewstudy;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "MainActivity";
 //    private EditText editText;
 //    private ImageView imageView;
     private ProgressBar progressBar;
@@ -18,13 +22,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button button1 = findViewById(R.id.button1);
+        Button button2 = findViewById(R.id.button2);
+        Button button3 = findViewById(R.id.button3);
 
         // 获取editText
 //        editText = findViewById(R.id.editText1);
         // 获取imageView
 //        imageView = findViewById(R.id.image_view);
         // 获取progressBar
-        progressBar = findViewById(R.id.progress_bar);
+        // progressBar = findViewById(R.id.progress_bar);
         // 使用匿名类的方式来注册监听器
 //        button1.setOnClickListener(new View.OnClickListener(){
 //            @Override
@@ -38,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        });
         // 使用实现接口的形式来注册监听器
         button1.setOnClickListener(this);
+        button2.setOnClickListener(this);
+        button3.setOnClickListener(this);
 
     }
 
@@ -57,10 +65,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    progressBar.setVisibility(View.GONE);
 //                }
                 // 设置水平进度条的值
-                int progress = progressBar.getProgress();
-                progress += 10;
-                progressBar.setProgress(progress);
+                // int progress = progressBar.getProgress();
+                // progress += 10;
+                // progressBar.setProgress(progress);
                 break;
+            case R.id.button2:
+                Log.d(TAG, "onClick: ");
+                Intent intent = new Intent(MainActivity.this ,LinearLayoutActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.button3:
+                Intent intent1 = new Intent(MainActivity.this, RelativeLayoutActivity.class);
+                startActivity(intent1);
             default:
                 break;
         }
