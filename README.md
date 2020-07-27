@@ -296,6 +296,97 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 }
 ```
 
+### AlertDialog
+
+> AlertDialog可以在当前的界面弹出一个对话框，这个对话框置顶于所有的界面元素之上的，能够屏蔽掉其他控件的交互能力，因此AlertDialog一般用于提示一些非常重要的内容或者警告信息。
+
+```java
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button button1 = findViewById(R.id.button1);
+
+        // 使用实现接口的形式来注册监听器
+        button1.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button1:
+                // 对话框
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                // 设置对话框标题
+                dialog.setTitle("This is Dialog");
+                // 设置对话框内容
+                dialog.setMessage("Something important.");
+                // 可否用Back键关闭对话框
+                dialog.setCancelable(false);
+                // 设置确认按钮的点击事件
+                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                // 设置取消按钮的点击事件
+                dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                // 将对话框显示出来
+                dialog.show();
+                break;
+            default:
+                break;
+        }
+    }
+}
+```
+
+### ProgressDialog
+
+> ProgresDialog和AlertDialog有点类似，都可以在界面上弹出一个对话框，都能够屏蔽掉其他控件的交互能力。不同的是，ProgressDialog会在对话框中显示一个进度条，一般用于表示当前操作比较耗时，让用户耐心等待。
+
+```java
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button button1 = findViewById(R.id.button1);
+
+
+        // 使用实现接口的形式来注册监听器
+        button1.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button1:
+                // ProgressDialog
+                ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+                // 设置标题
+                progressDialog.setTitle("This is ProgressDialog");
+                // 设置内容
+                progressDialog.setMessage("Loading...");
+                // 设置是否可以通过Back键取消
+                progressDialog.setCancelable(true);
+                // 显示
+                progressDialog.show();
+                break;
+            default:
+                break;
+        }
+    }
+}
+```
+
 ## 四种基本布局
 
 > 布局是一种可用于放置很多控件的容器，它可以按照一定的规律调整内部控件的位置，从而编写处精美的页面。当然，除了放置控件之外，也可以放置布局，通过多层布局的嵌套，我们就能够完成一些比较复杂的界面实现。
@@ -411,7 +502,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 </LinearLayout>
 ```
 
-> 这里我们将两个控件的宽度均设置为`0dp`,由于我们使用了`andoird:layout_weight`属性，此时的控件宽度不再由`android:layout_width`来决定。   
+> 这里我们将两个控件的宽度均设置为`0dp`,由于我们使用了`andoird:layout_weight`属性，此时的控件宽度不再由`android:layout_width`来决定。
 
 > 在`EditText`和`Button`里都将`android:layout_weight`设置为1，这表示`EditText`和`Button`将在水平方向上评分宽度。
 

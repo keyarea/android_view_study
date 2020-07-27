@@ -3,6 +3,9 @@ package net.qipo.viewstudy;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 获取imageView
 //        imageView = findViewById(R.id.image_view);
         // 获取progressBar
-        // progressBar = findViewById(R.id.progress_bar);
+        progressBar = findViewById(R.id.progress_bar);
         // 使用匿名类的方式来注册监听器
 //        button1.setOnClickListener(new View.OnClickListener(){
 //            @Override
@@ -68,6 +71,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // int progress = progressBar.getProgress();
                 // progress += 10;
                 // progressBar.setProgress(progress);
+//                int progress = progressBar.getProgress();
+//                progress += 10;
+//                progressBar.setProgress(progress);
+                // 对话框
+//                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+//                dialog.setTitle("This is Dialog");
+//                dialog.setMessage("Something important.");
+//                dialog.setCancelable(false);
+//                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                    }
+//                });
+//                dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                    }
+//                });
+//                dialog.show();
+                // ProgressDialog
+                ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+                progressDialog.setTitle("This is ProgressDialog");
+                progressDialog.setMessage("Loading...");
+                progressDialog.setCancelable(true);
+                progressDialog.show();
                 break;
             case R.id.button2:
                 Log.d(TAG, "onClick: ");
