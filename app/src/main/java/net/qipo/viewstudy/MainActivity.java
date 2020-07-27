@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
 //    private EditText editText;
 //    private ImageView imageView;
-    private ProgressBar progressBar;
+//    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 获取imageView
 //        imageView = findViewById(R.id.image_view);
         // 获取progressBar
-        progressBar = findViewById(R.id.progress_bar);
+        //progressBar = findViewById(R.id.progress_bar);
         // 使用匿名类的方式来注册监听器
 //        button1.setOnClickListener(new View.OnClickListener(){
 //            @Override
@@ -91,11 +91,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                });
 //                dialog.show();
                 // ProgressDialog
-                ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
-                progressDialog.setTitle("This is ProgressDialog");
-                progressDialog.setMessage("Loading...");
-                progressDialog.setCancelable(true);
-                progressDialog.show();
+//                ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+//                progressDialog.setTitle("This is ProgressDialog");
+//                progressDialog.setMessage("Loading...");
+//                progressDialog.setCancelable(true);
+//                progressDialog.show();
                 break;
             case R.id.button2:
                 Log.d(TAG, "onClick: ");
