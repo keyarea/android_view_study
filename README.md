@@ -689,3 +689,12 @@ dependencies {
 
 - `app:layout_widthPercent`: 该属性将各个按钮的宽度设置为布局的50%;
 - `app:layout_heightPercent`:该属性将各个按钮的高度设置为布局的50%。
+
+## 自定义控件
+
+> 我们所用的所有控件都是直接或者间接继承自View的，所用的所有布局都是直接或者间接继承自ViewGroup的。
+>
+> View是Android中最基本的一种UI组件，它可以在屏幕上绘制一块矩形区域，并能响应这块区域的各种事件，因此我们使用的各种控件其实就是在View的基础之上添加了各自特有的功能。
+>
+> ViewGroup则是一种特殊的View，它可以包含很多子View和子ViewGroup，是一个用于放置控件或者布局的容器。
+
