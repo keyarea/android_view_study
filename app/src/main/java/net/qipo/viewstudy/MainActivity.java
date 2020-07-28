@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button button1 = findViewById(R.id.button1);
         Button button2 = findViewById(R.id.button2);
         Button button3 = findViewById(R.id.button3);
+        Button button7 = findViewById(R.id.button7);
+        Button button8 = findViewById(R.id.button8);
 
         // 获取editText
 //        editText = findViewById(R.id.editText1);
@@ -49,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
         button3.setOnClickListener(this);
+        button7.setOnClickListener(this);
+        button8.setOnClickListener(this);
 
     }
 
@@ -105,6 +110,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button3:
                 Intent intent1 = new Intent(MainActivity.this, RelativeLayoutActivity.class);
                 startActivity(intent1);
+            case R.id.button7:
+                Intent intent2 = new Intent(MainActivity.this, FrameLayoutActivity.class);
+                startActivity(intent2);
+            case R.id.button8:
+                Intent intent3 = new Intent(MainActivity.this, PercentLayoutActivity.class);
+                startActivity(intent3);
             default:
                 break;
         }
