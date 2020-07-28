@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button button3 = findViewById(R.id.button3);
         Button button7 = findViewById(R.id.button7);
         Button button8 = findViewById(R.id.button8);
+        Button button9 = findViewById(R.id.button9);
+        Button listViewBtn = findViewById(R.id.list_view_btn);
 
         // 获取editText
 //        editText = findViewById(R.id.editText1);
@@ -54,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button3.setOnClickListener(this);
         button7.setOnClickListener(this);
         button8.setOnClickListener(this);
+        button9.setOnClickListener(this);
+        listViewBtn.setOnClickListener(this);
 
     }
 
@@ -116,6 +120,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button8:
                 Intent intent3 = new Intent(MainActivity.this, PercentLayoutActivity.class);
                 startActivity(intent3);
+            case R.id.button9:
+                Intent intent4 = new Intent(MainActivity.this, ViewActivity.class);
+                startActivity(intent4);
+            case R.id.list_view_btn:
+                Intent intent5 = new Intent(MainActivity.this, ListViewActivity.class);
+                startActivity(intent5);
             default:
                 break;
         }
