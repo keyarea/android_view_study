@@ -1,6 +1,7 @@
 package net.qipo.viewstudy;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent4 = new Intent(MainActivity.this, ViewActivity.class);
                 startActivity(intent4);
             case R.id.list_view_btn:
-                Intent intent5 = new Intent(MainActivity.this, ListViewActivity.class);
+                Intent intent5 = new Intent(MainActivity.this, RecyclerViewActivity.class);
                 startActivity(intent5);
             default:
                 break;

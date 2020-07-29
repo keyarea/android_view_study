@@ -1101,6 +1101,125 @@ public class ListViewActivity extends AppCompatActivity {
 }
 ```
 
+## 更强大的滚动控件-RecyclerView
+
+> `ListView`并不是完全没有缺点，我们不使用一些技巧来提升它的运行效率，那么`ListView`的效率会非常差，还有`ListView`的拓展性也不够好，它只能实现数据的纵向滚动效果，如果我们要实现横向滚动的话，`ListView`是做不到的。
+
+> 为此，Android提供了一个更强大的滚动控件--`RecyclerView`,优化了`ListView`的各种不足之处。
+
+### RecyclerView的基本用法
+
+> 想要使用`RecyclerView`需要在项目的`build.gradle`中添加相应的依赖库才可以。
+
+```
+implementation 'com.android.support:recyclerview-v7:28.0.0'
+```
+
+> 在布局中加入`RecyclerView`,由于不是系统内置组件，需要写出完整的包路径。
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+     android:layout_width="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
+```
+
+> 新建适配器
+
+```java
+public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> {
+    private  List<Fruit> mFruitList;
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView fruitImage;
+        TextView fruitName;
+        public ViewHolder(View v) {
+            super(v);
+            fruitImage = (ImageView) v.findViewById(R.id.fruit_image);
+            fruitName = (TextView) v.findViewById(R.id.fruit_name);
+        }
+    }
+
+    public FruitAdapter(List<Fruit> fruitList) {
+        this.mFruitList = fruitList;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.fruit_item, parent, false);
+        ViewHolder holder = new ViewHolder(view);
+        return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Fruit fruit = mFruitList.get(position);
+        holder.fruitImage.setImageResource(fruit.getImageId());
+        holder.fruitName.setText(fruit.getName());
+    }
+
+    @Override
+    public int getItemCount() {
+        return mFruitList.size();
+    }
+}
+```
+
+> `ViewHolder`是我们定义的一个内部类，在构造函数传入一个参数，这个参数通常是`RecyclerView`子项的最外层布局；
+
+> 我们新建的`FruitAdapter`的构造函数用于把要展示的数据传进来。
+> 由于`FruitAdapter`继承自`RecyclerView.Adapter`，那么就必须重写`onCreateViewHolder()`,`onBindViewHolder()`,`getItemCount()`：
+> - `onCreateViewHolder()`: 用于创建ViewHolder实例的，这个函数把布局加载进来，然后创建一个`ViewHolder`实例。
+> - `onBindViewHolder()`: 用于对`RecyclerView`的子项进行赋值，会在每个子项被滚动到屏幕内的时候执行。
+> - `getItemCount()`: 用于告诉`RecyclerView`有多少个子项。
+
+
+```java
+public class RecyclerViewActivity extends AppCompatActivity {
+
+    private List<Fruit> fruitList = new ArrayList<>();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_recycler_view);
+        this.initFruits();
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        // 用于指定RecyclerView的布局方式，LinearLayoutManager是线性布局
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        // 创建适配器
+        FruitAdapter fruitAdapter = new FruitAdapter(fruitList);
+        // 完成适配器设置
+        recyclerView.setAdapter(fruitAdapter);
+    }
+
+    private void initFruits() {
+        for (int i = 0; i < 5; i ++) {
+            Fruit apple = new Fruit("Apple",R.drawable.apple);
+            fruitList.add(apple);
+            Fruit pear = new Fruit("Pear", R.drawable.pear);
+            fruitList.add(pear);
+            Fruit banana = new Fruit("Banana", R.drawable.banana);
+            fruitList.add(banana);
+        }
+    }
+}
+```
+
+之后会实现和`ListView`类似的效果：
+
+![](./images/RecyclerView.jpeg)
+
 
 
 

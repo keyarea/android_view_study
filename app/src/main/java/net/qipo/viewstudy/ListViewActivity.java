@@ -27,14 +27,14 @@ public class ListViewActivity extends AppCompatActivity {
 //        ListView listView = findViewById(R.id.list_view);
 //        listView.setAdapter(adapter);
         // 初始化水果数据
-        initFruits();
-        FruitAdapter adapter = new FruitAdapter(ListViewActivity.this, R.layout.fruit_item, fruitList);
-        ListView listView  = findViewById(R.id.list_view);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener((parent, view, position, id) -> {
-            Fruit fruit = fruitList.get(position);
-            Toast.makeText(ListViewActivity.this, fruit.getName(), Toast.LENGTH_SHORT).show();
-        });
+//        initFruits();
+//        FruitAdapter adapter = new FruitAdapter(ListViewActivity.this, R.layout.fruit_item, fruitList);
+//        ListView listView  = findViewById(R.id.list_view);
+//        listView.setAdapter(adapter);
+//        listView.setOnItemClickListener((parent, view, position, id) -> {
+//            Fruit fruit = fruitList.get(position);
+//            Toast.makeText(ListViewActivity.this, fruit.getName(), Toast.LENGTH_SHORT).show();
+//        });
     }
 
     private void initFruits() {
