@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button button8 = findViewById(R.id.button8);
         Button button9 = findViewById(R.id.button9);
         Button listViewBtn = findViewById(R.id.list_view_btn);
+        Button bestPracticeBtn = findViewById(R.id.best_practice_btn);
 
         // 获取editText
 //        editText = findViewById(R.id.editText1);
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button8.setOnClickListener(this);
         button9.setOnClickListener(this);
         listViewBtn.setOnClickListener(this);
+        bestPracticeBtn.setOnClickListener(this);
 
     }
 
@@ -127,6 +129,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.list_view_btn:
                 Intent intent5 = new Intent(MainActivity.this, RecyclerViewActivity.class);
                 startActivity(intent5);
+            case R.id.best_practice_btn:
+                Intent intent6 = new Intent(MainActivity.this, UIBestPracticeActivity.class);
+                startActivity(intent6);
             default:
                 break;
         }

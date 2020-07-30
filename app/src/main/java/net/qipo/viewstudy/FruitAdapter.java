@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -58,10 +59,12 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
     private  List<Fruit> mFruitList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        View fruitView;
         ImageView fruitImage;
         TextView fruitName;
         public ViewHolder(View v) {
             super(v);
+            fruitView = v;
             fruitImage = (ImageView) v.findViewById(R.id.fruit_image);
             fruitName = (TextView) v.findViewById(R.id.fruit_name);
         }
@@ -76,7 +79,19 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fruit_item, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+//        ViewHolder holder = new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
+        holder.fruitView.setOnClickListener((v) -> {
+            int position = holder.getAdapterPosition();
+            Fruit fruit = mFruitList.get(position);
+            Toast.makeText(v.getContext(), "you clicked view" + fruit.getName(), Toast.LENGTH_SHORT).show();
+        });
+        holder.fruitImage.setOnClickListener((v) -> {
+            int position = holder.getAdapterPosition();
+            Fruit fruit = mFruitList.get(position);
+            Toast.makeText(v.getContext(), "you click image" + fruit.getName(), Toast.LENGTH_SHORT).show();
+        });
+
         return holder;
     }
 
