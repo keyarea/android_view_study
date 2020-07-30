@@ -1456,6 +1456,26 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
 ![](./images/RecyclerViewClick.jpg)
 
 
+## UI的最佳实践
+
+### Nine-Patch图片
+
+> 它是一种被特殊处理过的图片,是可伸缩的位图图像，可以用作视图的背景;
+
+![](./images/9patch.png)
+
+> 此 NinePatch 图形定义了一个具有左和上线的伸展区域, 以及可绘制区域的底部和右侧线条。在顶部图像中, 虚线灰色线标识复制图像的区域, 以拉伸图像。底部图像中的粉红色矩形标识允许视图内容的区域。如果该区域中的内容不适合, 则图像将被拉伸以使其适合。
+
+比如有一张气泡样式的图片:
+
+![](./images/message_left.png)
+
+如何将其制作为Nine-Patch图片呢?在Android Stdio中右键该图片
+
+![](./images/create9patch.png)
+
+
+
 
 
 
