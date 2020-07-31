@@ -1474,21 +1474,253 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
 
 ![](./images/create9patch.png)
 
+效果如下所示:
 
+![](./images/9patch1.jpg)
 
+![](./images/9patch2.jpg)
 
+> 当图片需要拉伸时，就可以只拉伸指定的区域。
 
+### 编写一个聊天界面
 
+需要发出消息以及接收消息的气泡框，当然需要把他们变成nine
 
+-patch图片,要不然它们会被均匀拉伸，会非常丑：
 
+![](./images/message_left.png)
 
+![](./images/message_right.png)
 
+这里我们使用到了滚动布局`RecyclerView`，由于不是系统自带的布局，需要从 外部引入：
 
+```groovy
+implementation 'com.android.support:recyclerview-v7:28.0.0'
+```
 
+接下来是整个活动的布局:
 
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#d8e0e8"
+    >
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/msg_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/input_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Type something here"
+                android:maxLines="2"
+                />
+            <Button
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send"/>
+        </LinearLayout>
 
+</LinearLayout>
+```
 
+> 可以看到以上的布局文件，分别包含聊天窗口以及消息发送
+
+接下来就是`RecyclerView`每个子项的布局:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/left_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:background="@drawable/message_left"
+        >
+        <TextView
+            android:id="@+id/left_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/right_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@drawable/message_right">
+        <TextView
+            android:id="@+id/right_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            />
+    </LinearLayout>
+
+</LinearLayout>
+```
+
+> 在以上布局文件中可以看出，我们把接收到的消息和发送的消息放到了一起，这就需要我们来控制每个子项显示哪类消息。
+
+接下来，我们需要为`RecyclerView`做一个适配器，让其可以正常显示：
+
+```java
+public class Msg {
+    // 这是一条收到的信息
+    public static final int TYPE_RECEIVED = 0;
+    // 这是一条发出的消息
+    public static final int TYPE_SENT = 1;
+    // 消息的内容
+    private String content;
+    // 消息的类型
+    private int type;
+    public Msg(String content, int type) {
+        this.content = content;
+        this.type = type;
+    }
+    public String getContent() {
+        return content;
+    }
+
+    public int getType() {
+        return type;
+    }
+}
+```
+
+```java
+public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
+    private List<Msg> msgList = new ArrayList<>();
+
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+
+        LinearLayout leftLayout;
+
+        LinearLayout rightLayout;
+
+        TextView leftMsg;
+
+        TextView rightMsg;
+        public ViewHolder(View view) {
+            super(view);
+            leftLayout = view.findViewById(R.id.left_layout);
+            rightLayout = view.findViewById(R.id.right_layout);
+            leftMsg = view.findViewById(R.id.left_msg);
+            rightMsg = view.findViewById(R.id.right_msg);
+        }
+    }
+
+    public MsgAdapter(List<Msg> msgList) {
+        this.msgList = msgList;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.msg_item, parent, false);
+
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Msg msg = msgList.get(position);
+        if (msg.getType() == Msg.TYPE_RECEIVED) {
+            // 如果是收到的消息，则显示左边的消息布局，将右边的消息布局隐藏
+            holder.leftLayout.setVisibility(View.VISIBLE);
+            holder.rightLayout.setVisibility(View.GONE);
+            holder.leftMsg.setText(msg.getContent());
+        } else if (msg.getType() == Msg.TYPE_SENT) {
+            // 如果是发出的消息，则显示右边的消息布局，将左边的消息布局隐藏
+            holder.rightLayout.setVisibility(View.VISIBLE);
+            holder.leftLayout.setVisibility(View.GONE);
+            holder.rightMsg.setText(msg.getContent());
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return msgList.size();
+    }
+}
+```
+
+然后我们需要在活动中添加上数据，以及发送消息的处理:
+
+```java
+public class UIBestPracticeActivity extends AppCompatActivity {
+    private List<Msg> msgList = new ArrayList<>();
+
+    private EditText inputText;
+
+    private Button send;
+
+    private RecyclerView msgRecyclerView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_u_i_best_practice);
+        initMsg();
+        inputText = findViewById(R.id.input_text);
+        send = findViewById(R.id.send);
+        msgRecyclerView = findViewById(R.id.msg_recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        msgRecyclerView.setLayoutManager(layoutManager);
+        MsgAdapter adapter = new MsgAdapter(msgList);
+        msgRecyclerView.setAdapter(adapter);
+
+        send.setOnClickListener((v) -> {
+            String content = inputText.getText().toString();
+            if (!"".equals(content)) {
+                Msg msg = new Msg(content, Msg.TYPE_SENT);
+                msgList.add(msg);
+                // 当有新消息时，刷新RecyclerView的显示
+                adapter.notifyItemInserted(msgList.size() - 1);
+                // 将RecyclerView定位到最后一行
+                msgRecyclerView.scrollToPosition(msgList.size() - 1);
+                inputText.setText("");
+            }
+        });
+    }
+
+    private void initMsg() {
+        Msg msg1 = new Msg("Hello guy.", Msg.TYPE_RECEIVED);
+        msgList.add(msg1);
+        Msg msg2 = new Msg("Hello, who is that?", Msg.TYPE_SENT);
+        msgList.add(msg2);
+        Msg msg3 = new Msg("This is Tom, Nice talking to you.", Msg.TYPE_RECEIVED);
+        msgList.add(msg3);
+    }
+}
+```
+
+最终实现效果如下:
+
+![](./images/message.jpg)
 
 
 
